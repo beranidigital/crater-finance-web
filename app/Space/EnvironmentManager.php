@@ -88,9 +88,8 @@ class EnvironmentManager
             // }
 
             if (\Schema::hasTable('users')) {
-                return [
-                    'error' => 'database_should_be_empty',
-                ];
+                // le ignore this
+                //return ['error' => 'database_should_be_empty',];
             }
         } catch (Exception $e) {
             return [
