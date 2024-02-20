@@ -11,13 +11,26 @@ Web Application is made using Laravel & VueJS while the Mobile Apps are built us
 ## Prerequisites
 
 - PHP 8.2
-
+- Node 20.x
+- 
 ## Installation Steps
 
 1. Clear database
 2. `php artisan migrate`
 3. When CSRF Error, clear browser cache
 
+## Build Setup
+
+### Prerequisites
+
+
+
+```bash
+npm install
+npm run build
+# or
+npm run dev
+```
 
 # Table of Contents
 

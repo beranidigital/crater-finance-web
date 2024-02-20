@@ -23,25 +23,6 @@
     @php
         $manifestJsonPath = public_path('build/manifest.json');
         $manifestJson = file_exists($manifestJsonPath) ? json_decode(file_get_contents($manifestJsonPath), true) : [];
-
-
-        /**
-         "resources/scripts/main.js": {
-    "css": [
-      "assets/main-f80aaa2b.css"
-    ],
-    "dynamicImports": [
-    ],
-    "file": "assets/main-d3260e98.js",
-    "isEntry": true,
-    "src": "resources/scripts/main.js"
-  },
-  "resources/static/img/crater-logo.png": {
-    "file": "assets/crater-logo-c5521a16.png",
-    "src": "resources/static/img/crater-logo.png"
-  }
-}
-         */
         // find js entry path based on isEntry
         $jsEntryPath = collect($manifestJson)->filter(function ($entry) {
             return $entry['isEntry'] ?? false;
@@ -51,8 +32,14 @@
 
         // check if vite is running
          $url = env('VITE_DEV_URL');
+         // check if url is on
+         try {
+            $headers = get_headers($url);
+         } catch (\Throwable $th) {
+            $url = null;
+         }
 
-        if ($url && config('app.debug')) {
+        if ($url) {
             $jsEntryPath = $url . '/resources/scripts/main.js';
             $cssPaths = [];
         }else{
