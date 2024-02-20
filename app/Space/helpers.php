@@ -181,7 +181,7 @@ function format_money_pdf($money, $currency = null)
     if ($currency->swap_currency_symbol) {
         $currency_with_symbol = $format_money.'<span style="font-family: DejaVu Sans;">'.$currency->symbol.'</span>';
     } else {
-        $currency_with_symbol = '<span style="font-family: DejaVu Sans;">'.$currency->symbol.'</span>'.$format_money;
+        $currency_with_symbol = '<span style="font-family: DejaVu Sans;">'.$currency->symbol.$format_money.'</span>';
     }
 
     return $currency_with_symbol;
