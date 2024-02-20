@@ -14,8 +14,9 @@ Web Application is made using Laravel & VueJS while the Mobile Apps are built us
 
 ## Installation Steps
 
-1. php artisan migrate
-2. When CSRF Error, clear browser cache
+1. Clear database
+2. `php artisan migrate`
+3. When CSRF Error, clear browser cache
 
 
 # Table of Contents
