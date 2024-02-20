@@ -96,7 +96,7 @@
           <span
             v-if="isLoading"
             class="block mt-1 text-xl font-semibold leading-8"
-            style="color: #5851d8"
+            style="color: #E72027"
           >
             <BaseFormatMoney
               :amount="chartData.netProfit"

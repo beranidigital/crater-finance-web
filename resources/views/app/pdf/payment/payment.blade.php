@@ -271,7 +271,7 @@
             font-size: 14px;
             line-height: 21px;
             text-align: right;
-            color: #5851D8;
+            color: #E72027;
             margin-left: 150px;
         }
 

@@ -71,7 +71,7 @@ Join the Crater discord server to discuss:
 
 ## Copyright
 
-© 2022 Crater Invoice, Inc.
+© 2022 Berani Digital ID
 
 **Special thanks to:**
 

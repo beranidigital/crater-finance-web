@@ -156,7 +156,7 @@ const copyrightText = computed(() => {
   if (window.copyright_text) {
     return window.copyright_text
   }
-  return 'Copyright @ Crater Invoice, Inc.'
+  return 'Copyright @ Berani Digital ID'
 })
 
 const loginPageLogo = computed(() => {
