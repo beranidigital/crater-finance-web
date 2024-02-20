@@ -48,12 +48,21 @@
         })->keys()->first();
         $cssPaths = $manifestJson[$jsEntryPath]['css'] ?? [];
         $jsEntryPath = $jsEntryPath ? $manifestJson[$jsEntryPath]['file'] : 'assets/main-d3260e98.js';
-        
+
+        // check if vite is running
+         $url = env('VITE_DEV_URL');
+
+        if ($url && config('app.debug')) {
+            $jsEntryPath = $url . '/resources/scripts/main.js';
+            $cssPaths = [];
+        }else{
+            $jsEntryPath = '/build/' . $jsEntryPath;
+        }
     @endphp
     @foreach($cssPaths as $path)
         <link rel="stylesheet" href="/build/{{ $path }}">
     @endforeach
-    <script type="module" src="/build/{{ $jsEntryPath }}"></script>
+    <script type="module" src="{{ $jsEntryPath }}"></script>
 </head>
 
 <body
