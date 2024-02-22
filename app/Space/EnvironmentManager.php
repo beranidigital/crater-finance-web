@@ -98,36 +98,39 @@ class EnvironmentManager
         }
 
         try {
-            if($oldDatabaseData != $newDatabaseData) {
-                file_put_contents($this->envPath, str_replace(
-                    $oldDatabaseData,
-                    $newDatabaseData,
-                    file_get_contents($this->envPath)
-                ));
+
+                $oldEnv = file_get_contents($this->envPath);
+                $newEnv = str_replace($oldDatabaseData, $newDatabaseData, $oldEnv);
+            if($oldEnv != $newEnv) {
+                file_put_contents($this->envPath, $newEnv);
             }
 
-            if(config('app.url') != $request->app_url) {
-                file_put_contents($this->envPath, str_replace(
-                    'APP_URL='.config('app.url'),
-                    'APP_URL='.$request->app_url,
-                    file_get_contents($this->envPath)
-                ));
+            $oldEnv = file_get_contents($this->envPath);
+            $newEnv = str_replace(
+                'APP_URL='.config('app.url'),
+                'APP_URL='.$request->app_url, $oldEnv);
+            if($oldEnv != $newEnv) {
+                file_put_contents($this->envPath, $newEnv);
             }
 
-            if(env('SANCTUM_STATEFUL_DOMAINS') != $request->app_domain) {
-                file_put_contents($this->envPath, str_replace(
-                    'SANCTUM_STATEFUL_DOMAINS='.env('SANCTUM_STATEFUL_DOMAINS'),
-                    'SANCTUM_STATEFUL_DOMAINS='.$request->app_domain,
-                    file_get_contents($this->envPath)
-                ));
+            $oldEnv = file_get_contents($this->envPath);
+            $newEnv = str_replace(
+                'SANCTUM_STATEFUL_DOMAINS='.env('SANCTUM_STATEFUL_DOMAINS'),
+                'SANCTUM_STATEFUL_DOMAINS='.$request->app_domain,
+                $oldEnv
+            );
+            if($oldEnv != $newEnv) {
+                file_put_contents($this->envPath, $newEnv);
             }
 
-            if(config('session.domain') != explode(':', $request->app_domain)[0]) {
-                file_put_contents($this->envPath, str_replace(
-                    'SESSION_DOMAIN='.config('session.domain'),
-                    'SESSION_DOMAIN='.explode(':', $request->app_domain)[0],
-                    file_get_contents($this->envPath)
-                ));
+            $oldEnv = file_get_contents($this->envPath);
+            $newEnv = str_replace(
+                'SESSION_DOMAIN='.config('session.domain'),
+                'SESSION_DOMAIN='.explode(':', $request->app_domain)[0],
+                $oldEnv
+            );
+            if($oldEnv != $newEnv) {
+                file_put_contents($this->envPath, $newEnv);
             }
         } catch (Exception $e) {
             return [
