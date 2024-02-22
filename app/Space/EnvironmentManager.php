@@ -98,30 +98,37 @@ class EnvironmentManager
         }
 
         try {
-            file_put_contents($this->envPath, str_replace(
-                $oldDatabaseData,
-                $newDatabaseData,
-                file_get_contents($this->envPath)
-            ));
+            if($oldDatabaseData != $newDatabaseData) {
+                file_put_contents($this->envPath, str_replace(
+                    $oldDatabaseData,
+                    $newDatabaseData,
+                    file_get_contents($this->envPath)
+                ));
+            }
 
-            file_put_contents($this->envPath, str_replace(
-                'APP_URL='.config('app.url'),
-                'APP_URL='.$request->app_url,
-                file_get_contents($this->envPath)
-            ));
+            if(config('app.url') != $request->app_url) {
+                file_put_contents($this->envPath, str_replace(
+                    'APP_URL='.config('app.url'),
+                    'APP_URL='.$request->app_url,
+                    file_get_contents($this->envPath)
+                ));
+            }
 
-            file_put_contents($this->envPath, str_replace(
-                'SANCTUM_STATEFUL_DOMAINS='.env('SANCTUM_STATEFUL_DOMAINS'),
-                'SANCTUM_STATEFUL_DOMAINS='.$request->app_domain,
-                file_get_contents($this->envPath)
-            ));
+            if(env('SANCTUM_STATEFUL_DOMAINS') != $request->app_domain) {
+                file_put_contents($this->envPath, str_replace(
+                    'SANCTUM_STATEFUL_DOMAINS='.env('SANCTUM_STATEFUL_DOMAINS'),
+                    'SANCTUM_STATEFUL_DOMAINS='.$request->app_domain,
+                    file_get_contents($this->envPath)
+                ));
+            }
 
-
-            file_put_contents($this->envPath, str_replace(
-                'SESSION_DOMAIN='.config('session.domain'),
-                'SESSION_DOMAIN='.explode(':', $request->app_domain)[0],
-                file_get_contents($this->envPath)
-            ));
+            if(config('session.domain') != explode(':', $request->app_domain)[0]) {
+                file_put_contents($this->envPath, str_replace(
+                    'SESSION_DOMAIN='.config('session.domain'),
+                    'SESSION_DOMAIN='.explode(':', $request->app_domain)[0],
+                    file_get_contents($this->envPath)
+                ));
+            }
         } catch (Exception $e) {
             return [
                 'error' => 'database_variables_save_error',
